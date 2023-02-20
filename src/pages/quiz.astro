@@ -1,13 +1,8 @@
 ---
 // Component Imports
-import Counter from '../components/Counter';
-import Quiz from '../components/Quizzes';
-import TextParserForm from '../components/TextParserForm';
+import Quiz from '../components/Quiz';
 import '../styles/global.css';
-
-const someProps = {
-	count: 0,
-};
+const search = Astro.url.searchParams.get('search')! || '';
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
@@ -32,12 +27,7 @@ const someProps = {
 	</head>
 	<body>
 		<main>
-			<Counter {...someProps} client:visible>
-				<h1>Hello, React!</h1>
-			</Counter>
-
-			<TextParserForm/ client:visible>
-			
+			<Quiz/ client:load>		
 		</main>
 	</body>
 </html>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Counter.css';
+import '../styles/global.css'
 
 export default function Counter({
 	children,
