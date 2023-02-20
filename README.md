@@ -1,12 +1,13 @@
-# Astro + React Example
+# Astro + React + Tailwind
 
-```
-npm create astro@latest -- --template framework-react
-```
+## Repo Purpose
+Creating an App that will host a bunch of feature pages. From a new quiz app for my wife to a few power bi reports, and other stuff
+I'll be using a nest.js backend to keep the functionality well scoped in modules.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/framework-react)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/framework-react)
 
-This example showcases Astro working with [React](https://reactjs.org/).
+## Install
+`npm i`
 
-Write your React components as `.jsx` or `.tsx` files in your project.
+## Run
+`npm run start`
+
