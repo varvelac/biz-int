@@ -1,13 +1,7 @@
 ---
 // Component Imports
-import Counter from '../components/Counter';
-import Quiz from '../components/Quizzes';
-import TextParserForm from '../components/TextParserForm';
+import TextParserForm from '../features/quizzes/TextParserForm';
 import '../styles/global.css';
-
-const someProps = {
-	count: 0,
-};
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
@@ -32,7 +26,7 @@ const someProps = {
 	</head>
 	<body>
 		<main>
-			<TextParserForm/ client:visible>		
+			<TextParserForm client:visible/>		
 		</main>
 	</body>
 </html>

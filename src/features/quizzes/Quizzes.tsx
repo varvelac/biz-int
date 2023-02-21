@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios, { isCancel, AxiosError } from "axios";
-import { Category, Quiz, Question, AnswerValues } from "./models/quiz.model";
+import { Category, Quiz, Question, AnswerValues } from "./quiz.model";
 
 
 export default function Quizzes() {
@@ -21,7 +21,7 @@ export default function Quizzes() {
         questions: quiz.questions
       }
 
-      let targetCategory = categories.find((category) => category.name === quiz.category)
+      let targetCategory = categories.find((category) => category.category === quiz.category)
           
       if(!targetCategory) {
       categories.push(
@@ -63,8 +63,8 @@ export default function Quizzes() {
       {categories.map((category, index) => (
         <div>
           <button
-            className="border-glow w-1/2 sm:w-3/4 flex items-center justify-between py-2 px-4 border border-gray-300 rounded-md mb-2 hover:bg-gray-100 focus:outline-none"
-            onClick={(event) => toggleAccordion(index, event)}
+            className="border-glow w-1/2 sm:w-3/4 flex items-center justify-between py-2 px-4 border rounded-md mb-2 hover:bg-gray-100 focus:outline-none"
+            onMouseOver={(event) => toggleAccordion(index, event)}
           >
             <h2 className="text-lg font-medium">{category.category}</h2>
             <svg
@@ -85,11 +85,12 @@ export default function Quizzes() {
           <ul
             className={`${
               activeIndex === index ? "block" : "hidden"
-            } px-4 mb-2 transition-all duration-500 ease-in-out`}
+            } px-4 mb-2 transition-all duration-500 ease-in-out border-glow border rounded-md w-1/2 sm:w-3/4`}
           >
             {category.quizzes.map((quiz) => (
-              <li className="mb-1 ml-4" key={quiz.name}>
-                <button>{quiz.name}</button>
+              <li className="" key={quiz.name}>
+                <button className="w-full">
+                <a href="/cosmetology/quiz?=${quiz.quiz_id}">{quiz.name}</a></button>
               </li>
             ))}
           </ul>

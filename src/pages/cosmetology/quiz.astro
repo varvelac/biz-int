@@ -1,9 +1,6 @@
 ---
-// Component Imports
-import Quiz from '../components/Quiz';
-import '../styles/global.css';
-const search = Astro.url.searchParams.get('search')! || '';
-
+import Quiz from '../../features/quizzes/Quiz';
+import '../../styles/global.css';
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---
@@ -27,7 +24,7 @@ const search = Astro.url.searchParams.get('search')! || '';
 	</head>
 	<body>
 		<main>
-			<Quiz/ client:load>		
+			<Quiz client:load/>		
 		</main>
 	</body>
 </html>
