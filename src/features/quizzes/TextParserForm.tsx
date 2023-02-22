@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios, { isCancel, AxiosError } from "axios";
 import { Question, AnswerValues } from "./quiz.model";
 import "../../styles/global.css";
+import { SERVER_URL } from "../../env.d";
 
 export default function TextParserForm() {
   const [inputText, setInputText] = useState("");
@@ -41,7 +42,7 @@ export default function TextParserForm() {
     };
     console.log(payloadToSend);
     axios
-      .post("https://us-central1-biz-int-starship.cloudfunctions.net/api/quizzes/create", payloadToSend)
+      .post(SERVER_URL + "/quizzes/create", payloadToSend)
       .then(function (response) {})
       .catch(function (error) {
         // handle error

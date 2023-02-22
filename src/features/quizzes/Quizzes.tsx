@@ -1,54 +1,51 @@
 import React, { useState, useEffect } from "react";
 import axios, { isCancel, AxiosError } from "axios";
 import { Category, Quiz, Question, AnswerValues } from "./quiz.model";
-import { QuizService } from "./quiz.service";
+import { SERVER_URL } from "../../env.d";
 
 export default function Quizzes() {
-
   const [categories, setCategories] = useState<any[]>([]);
   useEffect(() => {
-    axios
-    .get(
-      "https://us-central1-biz-int-starship.cloudfunctions.net/api/quizzes"
-    ).then(function (response) {
+  axios
+    .get(SERVER_URL + "/quizzes")
+    .then(function (response) {
       // handle success
       let quizzes = response.data;
-      quizzes
-        .forEach((quiz) => {
-          const categories: Category[] = getCategories(quiz);
+      let categories: Category[] = [];
+      quizzes.forEach((quiz) => {
 
-          setCategories(categories);
-          console.log(response.data);
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        });
-    });
+      let quizObj:Quiz = {
+        category: quiz.category,
+        name: quiz.name,
+        quiz_id: quiz.quiz_id,
+        questions: quiz.questions
+      }
+
+      let targetCategory = categories.find((category) => category.category === quiz.category)
+          
+      if(!targetCategory) {
+      categories.push(
+        {
+          category: quiz.category,
+          quizzes: [quizObj],
+        }
+      );
+      } else {
+        targetCategory.quizzes.push(quizObj);
+      }
+      
+      });
+      setCategories(categories);
+      console.log(response.data);
+      
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+
   }, []);
 
-  function getCategories(quiz: Quiz) {
-    let quizObj:Quiz = {
-      category: quiz.category,
-      name: quiz.name,
-      quiz_id: quiz.quiz_id,
-      questions: quiz.questions
-    }
-
-    let targetCategory = categories.find((category) => category.category === quiz.category)
-        
-    if(!targetCategory) {
-    categories.push(
-      {
-        category: quiz.category,
-        quizzes: [quizObj],
-      }
-    );
-    } else {
-      targetCategory.quizzes.push(quizObj);
-    }
-    return categories;
-  }
 
 
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -64,7 +61,7 @@ export default function Quizzes() {
       {categories.map((category, index) => (
         <div>
           <button
-            className="border-glow w-1/2 sm:w-3/4 flex items-center justify-between py-2 px-4 border rounded-md mb-2 bg-gray-100 focus:outline-none"
+            className="border-glow w-full flex items-center justify-between py-2 px-4 border rounded-md mb-2 bg-gray-100 focus:outline-none"
             onMouseOver={(event) => toggleAccordion(index, event)}
           >
             <h2 className="text-lg font-medium">{category.category}</h2>
@@ -86,7 +83,7 @@ export default function Quizzes() {
           <ul
             className={`${
               activeIndex === index ? "block" : "hidden"
-            } px-4 mb-2 bg-gray-100 transition-all duration-500 ease-in-out border-glow border rounded-md w-1/2 sm:w-3/4`}
+            } px-4 mb-2 bg-gray-100 transition-all duration-500 ease-in-out border-glow border rounded-md w-full `}
           >
             {category.quizzes.map((quiz) => (
               <li className="" key={quiz.name}>
