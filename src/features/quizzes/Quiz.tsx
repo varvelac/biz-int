@@ -41,6 +41,7 @@ export default function Quiz() {
               question,
               answers: Object.entries(answers),
               correctAnswer,
+              // fullCorrectAnswer: answers[correctAnswer]
             };
           }
         );
@@ -76,7 +77,7 @@ export default function Quiz() {
         </h3>
        {incorrectAnswers.map((incorrectAnswer) => {
           return (
-            <div>
+            <div className="mb-5">
             <h4 className="font-semibold">
               {questions[incorrectAnswer].questionNum} : {questions[incorrectAnswer].question}
             </h4>
@@ -85,7 +86,7 @@ export default function Quiz() {
              </div>
           )
        })} 
-       <button className="btn_w_border fixed bottom-12 left-1/4 mx-auto w-1/2"><a href="/cosmetology/quizzes">Return home</a></button>
+       <button className="btn_w_border fixed bottom-12 left-1/4 mx-auto w-1/2 lg:left-1/3 lg:w-1/4"><a href="/cosmetology/quizzes">Return home</a></button>
        </div>
        
       </>
@@ -100,7 +101,7 @@ export default function Quiz() {
             return (
               <button
                 key={key}
-                className="btn_w_border"
+                className="btn_w_border text-left bg-gray-100"
                 onClick={() => handleAnswer(key)}>
                {key} : {value}
               </button>

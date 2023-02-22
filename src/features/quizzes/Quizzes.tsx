@@ -58,11 +58,11 @@ export default function Quizzes() {
 
   return (
     <div className="max-w-md mx-auto">
-      {categories.map((category, index) => (
+      {categories?.map((category, index) => (
         <div>
           <button
-            className="border-glow w-full flex items-center justify-between py-2 px-4 border rounded-md mb-2 bg-gray-100 focus:outline-none"
-            onMouseOver={(event) => toggleAccordion(index, event)}
+            className="btn_w_border w-full flex items-center justify-between py-2 px-4 border rounded-md mb-2 bg-gray-100 focus:outline-none"
+            onClick={(event) => toggleAccordion(index, event)}
           >
             <h2 className="text-lg font-medium">{category.category}</h2>
             <svg
@@ -83,10 +83,10 @@ export default function Quizzes() {
           <ul
             className={`${
               activeIndex === index ? "block" : "hidden"
-            } px-4 mb-2 bg-gray-100 transition-all duration-500 ease-in-out border-glow border rounded-md w-full `}
+            } `}
           >
-            {category.quizzes.map((quiz) => (
-              <li className="" key={quiz.name}>
+            {category.quizzes?.map((quiz) => (
+              <li className="px-4 mb-2 bg-gray-100 transition-all duration-500 ease-in-out btn_w_border border rounded-md w-full " key={quiz.name}>
                 <button className="w-full">
                 <a href="/cosmetology/quiz?=${quiz.quiz_id}">{quiz.name}</a></button>
               </li>

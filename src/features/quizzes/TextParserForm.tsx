@@ -85,21 +85,21 @@ export default function TextParserForm() {
       <div className="flex flex-col justify-center m-5">
         <label className="mx-auto"  htmlFor="category">Category Name</label>
         <input
-          className="mx-auto border-glow w-6/12 m-5"
+          className="mx-auto btn_w_border w-6/12 m-5"
           name="category"
           value={payload.category}
           onChange={changeCategory}
         ></input>
         <label className="mx-auto"  htmlFor="name">Quiz Name</label>
         <input
-          className="mx-auto border-glow w-6/12 m-5"
+          className="mx-auto btn_w_border w-6/12 m-5"
           name="name"
           value={payload.name}
           onChange={changeCategory}
         ></input>
         <label className="mx-auto"  htmlFor="quiz_id">Quiz Id</label>
         <input
-          className="mx-auto border-glow w-6/12 m-5"
+          className="mx-auto btn_w_border w-6/12 m-5"
           name="quiz_id"
           value={payload.quiz_id}
           onChange={changeCategory}
@@ -110,23 +110,23 @@ export default function TextParserForm() {
         onSubmit={handleFormSubmit}
       >
         <textarea
-          className="mx-auto border-glow w-6/12 m-5"
+          className="mx-auto btn_w_border w-6/12 m-5"
           rows={10}
           value={inputText}
           onChange={handleInputChange}
         />
         <textarea
-          className="mx-auto border-glow w-6/12 m-5 "
+          className="mx-auto btn_w_border w-6/12 m-5 "
           rows={10}
           value={questions ? JSON.stringify(questions, undefined, 2) : ""}
           onChange={handleInputChange}
         />
         <div className="block flex w-1/2 mx-auto">
-          <button className="mx-auto border-glow m-4 p-4" type="submit">
+          <button className="mx-auto btn_w_border m-4 p-4" type="submit">
             Parse Text
           </button>
           <button
-            className="mx-auto border-glow m-4 p-4"
+            className="mx-auto btn_w_border m-4 p-4"
             onClick={handleUpload}
           >
             Upload Quiz
