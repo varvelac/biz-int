@@ -26,8 +26,9 @@ export default function Quiz() {
       .then(function (response) {
         const quiz: Quiz = response.data[0];
         const questions = quiz.questions.map(
-          ({ answers, correctAnswer, question, questionNum }) => {
+          ({ answers, correctAnswer, question, questionNum }, index) => {
             return {
+              index,
               questionNum,
               question,
               answers: Object.entries(answers),
@@ -59,22 +60,21 @@ export default function Quiz() {
   };
 
   return (
-    <div className="mx-auto flex flex-col w-1/2 ">
+    <div className="mx-auto flex flex-col sm:w-3/4 md:w-3/4 lg:w-1/2 p-8 ">
       {!question ? (
         <p>Loading...</p>
       ) : (
         <>
-          <h3>
-            {question.questionNum} {question.question}
+          <h3 className="mb-5">
+            {question.questionNum} : {question.question}
           </h3>
           {question.answers.map(([key, value]) => {
             return (
               <button
                 key={key}
-                className="border-glow bg-gray-400 hover:bg-gray-500 text-gray-800 font-bold py-2 px-4 mb-2 rounded "
-                onClick={() => handleAnswer(key)}
-              >
-                {value}
+                className="btn_w_border"
+                onClick={() => handleAnswer(key)}>
+               {key} : {value}
               </button>
             );
           })}

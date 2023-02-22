@@ -43,9 +43,7 @@ export default function Quizzes() {
       // handle error
       console.log(error);
     })
-    .finally(function () {
-      // always executed
-    });
+
   }, []);
 
 
@@ -63,7 +61,7 @@ export default function Quizzes() {
       {categories.map((category, index) => (
         <div>
           <button
-            className="border-glow w-1/2 sm:w-3/4 flex items-center justify-between py-2 px-4 border rounded-md mb-2 hover:bg-gray-100 focus:outline-none"
+            className="border-glow w-1/2 sm:w-3/4 flex items-center justify-between py-2 px-4 border rounded-md mb-2 bg-gray-100 focus:outline-none"
             onMouseOver={(event) => toggleAccordion(index, event)}
           >
             <h2 className="text-lg font-medium">{category.category}</h2>
@@ -85,7 +83,7 @@ export default function Quizzes() {
           <ul
             className={`${
               activeIndex === index ? "block" : "hidden"
-            } px-4 mb-2 transition-all duration-500 ease-in-out border-glow border rounded-md w-1/2 sm:w-3/4`}
+            } px-4 mb-2 bg-gray-100 transition-all duration-500 ease-in-out border-glow border rounded-md w-1/2 sm:w-3/4`}
           >
             {category.quizzes.map((quiz) => (
               <li className="" key={quiz.name}>

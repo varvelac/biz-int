@@ -39,18 +39,14 @@ export default function TextParserForm() {
       category: payload.category,
       questions: questions,
     };
-    // axios
-    //   .post("http://localhost/quizzes", {
-    //     name: 'string',
-    //     quiz_id:'string',
-    //     category: 'string',
-    //     questions: questions
-    //   })
-    //   .then(function (response) {})
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);
-    //   });
+    console.log(payloadToSend);
+    axios
+      .post("http://localhost/quizzes/create", payloadToSend)
+      .then(function (response) {})
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
   };
 
   const formatText = (inputString) => {

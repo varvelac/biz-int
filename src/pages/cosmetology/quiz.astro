@@ -1,5 +1,6 @@
 ---
 import Quiz from '../../features/quizzes/Quiz';
+import Card from '../../layouts/card.astro';
 import '../../styles/global.css';
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
@@ -22,9 +23,9 @@ import '../../styles/global.css';
 			}
 		</style>
 	</head>
-	<body>
-		<main>
-			<Quiz client:load/>		
+	<body class="bg-gray-400">
+		<main >
+			<Card/>
 		</main>
 	</body>
 </html>
