@@ -1,51 +1,54 @@
 import React, { useState, useEffect } from "react";
 import axios, { isCancel, AxiosError } from "axios";
 import { Category, Quiz, Question, AnswerValues } from "./quiz.model";
-
+import { QuizService } from "./quiz.service";
 
 export default function Quizzes() {
+
   const [categories, setCategories] = useState<any[]>([]);
   useEffect(() => {
-  axios
-    .get("http://localhost/quizzes")
-    .then(function (response) {
+    axios
+    .get(
+      "https://us-central1-biz-int-starship.cloudfunctions.net/api/quizzes"
+    ).then(function (response) {
       // handle success
       let quizzes = response.data;
-      let categories: Category[] = [];
-      quizzes.forEach((quiz) => {
+      quizzes
+        .forEach((quiz) => {
+          const categories: Category[] = getCategories(quiz);
 
-      let quizObj:Quiz = {
-        category: quiz.category,
-        name: quiz.name,
-        quiz_id: quiz.quiz_id,
-        questions: quiz.questions
-      }
-
-      let targetCategory = categories.find((category) => category.category === quiz.category)
-          
-      if(!targetCategory) {
-      categories.push(
-        {
-          category: quiz.category,
-          quizzes: [quizObj],
-        }
-      );
-      } else {
-        targetCategory.quizzes.push(quizObj);
-      }
-      
-      });
-      setCategories(categories);
-      console.log(response.data);
-      
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-
+          setCategories(categories);
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        });
+    });
   }, []);
 
+  function getCategories(quiz: Quiz) {
+    let quizObj:Quiz = {
+      category: quiz.category,
+      name: quiz.name,
+      quiz_id: quiz.quiz_id,
+      questions: quiz.questions
+    }
+
+    let targetCategory = categories.find((category) => category.category === quiz.category)
+        
+    if(!targetCategory) {
+    categories.push(
+      {
+        category: quiz.category,
+        quizzes: [quizObj],
+      }
+    );
+    } else {
+      targetCategory.quizzes.push(quizObj);
+    }
+    return categories;
+  }
 
 
   const [activeIndex, setActiveIndex] = useState(-1);

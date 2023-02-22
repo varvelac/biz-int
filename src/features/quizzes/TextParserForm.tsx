@@ -41,7 +41,7 @@ export default function TextParserForm() {
     };
     console.log(payloadToSend);
     axios
-      .post("http://localhost/quizzes/create", payloadToSend)
+      .post("https://us-central1-biz-int-starship.cloudfunctions.net/api/quizzes/create", payloadToSend)
       .then(function (response) {})
       .catch(function (error) {
         // handle error

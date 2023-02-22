@@ -22,7 +22,7 @@ export default function Quiz() {
     //?quiz_id=params.quiz_id
 
     axios
-      .get("http://localhost/quizzes?quiz_id=${params.quiz_id}")
+      .get("https://us-central1-biz-int-starship.cloudfunctions.net/api/quizzes?quiz_id=${params.quiz_id}")
       .then(function (response) {
         const quiz: Quiz = response.data[0];
         const questions = quiz.questions.map(
