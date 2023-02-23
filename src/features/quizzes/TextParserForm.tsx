@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios, { isCancel, AxiosError } from "axios";
-import { Question, AnswerValues } from "./quiz.model";
+import { Question, AnswerValues, Quiz } from "./quiz.model";
 import "../../styles/global.css";
 import { SERVER_URL } from "../../env.d";
+import { hasAllProperties } from "./utility";
 
 export default function TextParserForm() {
   const [inputText, setInputText] = useState("");
@@ -34,18 +35,25 @@ export default function TextParserForm() {
   };
 
   const handleUpload = (event) => {
-    const payloadToSend = {
+    const payloadToSend:Quiz = {
       name: payload.name,
       quiz_id: payload.quiz_id,
       category: payload.category,
       questions: questions,
     };
+    if(!hasAllProperties(payloadToSend)){
+      alert("Please fill in all the fields")
+      return;
+    }
     console.log(payloadToSend);
     axios
       .post(SERVER_URL + "/quizzes/create", payloadToSend)
-      .then(function (response) {})
+      .then(function (response) {
+        alert("upload complete")
+      })
       .catch(function (error) {
         // handle error
+        alert("upload failed")
         console.log(error);
       });
   };
@@ -85,21 +93,21 @@ export default function TextParserForm() {
       <div className="flex flex-col justify-center m-5">
         <label className="mx-auto"  htmlFor="category">Category Name</label>
         <input
-          className="mx-auto btn_w_border w-6/12 m-5"
+          className="mx-auto bg-grey-100 border-grey-700 w-6/12 m-5"
           name="category"
           value={payload.category}
           onChange={changeCategory}
         ></input>
         <label className="mx-auto"  htmlFor="name">Quiz Name</label>
         <input
-          className="mx-auto btn_w_border w-6/12 m-5"
+          className="mx-auto bg-grey-100 border-grey-700 w-6/12 m-5"
           name="name"
           value={payload.name}
           onChange={changeCategory}
         ></input>
         <label className="mx-auto"  htmlFor="quiz_id">Quiz Id</label>
         <input
-          className="mx-auto btn_w_border w-6/12 m-5"
+          className="mx-auto bg-grey-100 border-grey-700 w-6/12 m-5"
           name="quiz_id"
           value={payload.quiz_id}
           onChange={changeCategory}
@@ -110,23 +118,23 @@ export default function TextParserForm() {
         onSubmit={handleFormSubmit}
       >
         <textarea
-          className="mx-auto btn_w_border w-6/12 m-5"
+          className="mx-auto border-gray-700 active:border-green-500 bg-grey-100 w-6/12 m-5"
           rows={10}
           value={inputText}
           onChange={handleInputChange}
         />
         <textarea
-          className="mx-auto btn_w_border w-6/12 m-5 "
+          className="mx-auto  border-gray-700 active:border-green-500 bg-grey-100  w-6/12 m-5 "
           rows={10}
           value={questions ? JSON.stringify(questions, undefined, 2) : ""}
           onChange={handleInputChange}
         />
         <div className="block flex w-1/2 mx-auto">
-          <button className="mx-auto btn_w_border m-4 p-4" type="submit">
+          <button className="mx-auto bg-grey-100 m-4 p-4" type="submit">
             Parse Text
           </button>
           <button
-            className="mx-auto btn_w_border m-4 p-4"
+            className="mx-auto border-grey-700 m-4 p-4"
             onClick={handleUpload}
           >
             Upload Quiz

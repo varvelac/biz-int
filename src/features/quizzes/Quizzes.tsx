@@ -9,7 +9,6 @@ export default function Quizzes() {
   axios
     .get(SERVER_URL + "/quizzes")
     .then(function (response) {
-      // handle success
       let quizzes = response.data;
       let categories: Category[] = [];
       quizzes.forEach((quiz) => {
@@ -61,7 +60,7 @@ export default function Quizzes() {
       {categories?.map((category, index) => (
         <div>
           <button
-            className="btn_w_border w-full flex items-center justify-between py-2 px-4 border rounded-md mb-2 bg-gray-100 focus:outline-none"
+            className="btn_w_border bg-white w-full flex items-center justify-between py-2 px-4 rounded-md mb-2"
             onClick={(event) => toggleAccordion(index, event)}
           >
             <h2 className="text-lg font-medium">{category.category}</h2>
@@ -86,9 +85,12 @@ export default function Quizzes() {
             } `}
           >
             {category.quizzes?.map((quiz) => (
-              <li className="px-4 mb-2 bg-gray-100 transition-all duration-500 ease-in-out btn_w_border border rounded-md w-full " key={quiz.name}>
-                <button className="w-full">
-                <a href="/cosmetology/quiz?=${quiz.quiz_id}">{quiz.name}</a></button>
+              <li className="btn_w_border bg-white w-full flex items-center justify-between py-2 px-4 rounded-md mb-2" key={quiz.name}>
+                <a className="w-full"href="/cosmetology/quiz?=${quiz.quiz_id}">
+                <button className="w-full ">
+                {quiz.name}
+                </button>
+                </a>
               </li>
             ))}
           </ul>

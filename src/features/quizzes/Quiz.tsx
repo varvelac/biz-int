@@ -3,6 +3,8 @@ import { getUrlParams } from "../../utils/urlParams";
 import axios, { isCancel, AxiosError } from "axios";
 import { Question, Quiz } from "./quiz.model";
 import { SERVER_URL } from "../../env.d";
+import "../../styles/global.css";
+import { TiArrowSyncOutline } from "react-icons/ti";
 
 export default function Quiz() {
   const [questions, setQuestions] = useState([]);
@@ -12,14 +14,13 @@ export default function Quiz() {
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
 
   const answerMap = {
-    A:0,
-    B:1,
-    C:2,
-    D:3
-  }
+    A: 0,
+    B: 1,
+    C: 2,
+    D: 3,
+  };
   let question = questions[currentQuestion];
   let correctAnswer = question?.correctAnswer;
-
 
   useEffect(() => {
     // Get URL params
@@ -52,45 +53,73 @@ export default function Quiz() {
 
   const handleAnswer = (selectedAnswer) => {
     console.log("selectedAnswer", selectedAnswer);
-    if (selectedAnswer == correctAnswer ) {
+    if (selectedAnswer == correctAnswer) {
       setScore(score + 1);
     } else {
-      setIncorrectAnswers(incorrectAnswers => [...incorrectAnswers, currentQuestion]);
+      setIncorrectAnswers((incorrectAnswers) => [
+        ...incorrectAnswers,
+        currentQuestion,
+      ]);
     }
 
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < questions.length) {
       setCurrentQuestion(nextQuestion);
     } else {
-
       setShowScore(true);
     }
   };
 
   return (
     <div className="mx-auto flex flex-col sm:w-3/4 md:w-3/4 lg:w-1/2 p-8 ">
+      <div className="p-5">
+        <h1 className=" text-center text-black">
+          {currentQuestion + 1} of {questions.length} questions
+        </h1>
+        <div className="mt-3 mx-auto h-3 relative max-w-xl rounded-sm overflow-hidden">
+          <div className="w-full h-full bg-gray-200 absolute"></div>
+          <div
+            id="progress-bar"
+            className="transition-all ease-out duration-1000 h-full bg-gradient-to-r bg-blue-400  relative"
+            style={{ width: `${(currentQuestion / questions.length) * 100}%` }}
+          ></div>
+        </div>
+      </div>
+
       {showScore ? (
         <>
-        <div className="relative">
-        <h3 className="font-semibold mb-8">
-        {score} out of  {questions.length} correct - {Math.round(score/ questions.length * 100)}% 
-        </h3>
-       {incorrectAnswers.map((incorrectAnswer) => {
-          return (
-            <div className="mb-5">
-            <h4 className="font-semibold">
-              {questions[incorrectAnswer].questionNum} : {questions[incorrectAnswer].question}
-            </h4>
-            {/* holy moly, please fix this soon! */}
-             <p> {questions[incorrectAnswer].answers[answerMap[questions[incorrectAnswer].correctAnswer]]} </p>
-             </div>
-          )
-       })} 
-       <button className="btn_w_border fixed bottom-12 left-1/4 mx-auto w-1/2 lg:left-1/3 lg:w-1/4"><a href="/cosmetology/quizzes">Return home</a></button>
-       </div>
-       
-      </>
-      ) : ( !question ? (
+          <div className="relative">
+            <h3 className="font-semibold mb-8">
+              {score} out of {questions.length} correct -{" "}
+              {Math.round((score / questions.length) * 100)}%
+            </h3>
+            {incorrectAnswers.map((incorrectAnswer) => {
+              return (
+                <div className="mb-5">
+                  <h4 className="font-semibold">
+                    {questions[incorrectAnswer].questionNum} :{" "}
+                    {questions[incorrectAnswer].question}
+                  </h4>
+                  {/* holy moly, please fix this soon! */}
+                  <p>
+                    {" "}
+                    {
+                      questions[incorrectAnswer].answers[
+                        answerMap[questions[incorrectAnswer].correctAnswer]
+                      ]
+                    }{" "}
+                  </p>
+                </div>
+              );
+            })}
+            <a className="fixed left-1/2 transform -translate-x-1/2 bottom-10 left-7/8 mx-auto w-1/8;" href="/cosmetology/quizzes">
+              <button className="btn_w_border  bg-red-500 active:animate-ping">
+                <TiArrowSyncOutline size={16} className="text-orange-300" />
+              </button>
+            </a>
+          </div>
+        </>
+      ) : !question ? (
         <p>Loading...</p>
       ) : (
         <>
@@ -102,13 +131,14 @@ export default function Quiz() {
               <button
                 key={key}
                 className="btn_w_border text-left bg-gray-100"
-                onClick={() => handleAnswer(key)}>
-               {key} : {value}
+                onClick={() => handleAnswer(key)}
+              >
+                {key} : {value}
               </button>
             );
           })}
         </>
-      ))}
+      )}
     </div>
   );
 }

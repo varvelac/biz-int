@@ -9,8 +9,8 @@
 
   .btn_w_border {
     @apply
-    bg-gray-400 hover:bg-gray-500 text-gray-600 font-light py-2 px-4 mb-2 rounded 
-    hover:text-white
+    bg-gray-400 text-gray-600 font-light py-2 px-4 mb-2 rounded 
+     active:bg-red-500 active:text-orange-300
   }
 
 }
