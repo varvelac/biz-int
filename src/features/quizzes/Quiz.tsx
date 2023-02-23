@@ -4,7 +4,7 @@ import axios, { isCancel, AxiosError } from "axios";
 import { Question, Quiz } from "./quiz.model";
 import { SERVER_URL } from "../../env.d";
 import "../../styles/global.css";
-import { TiArrowSyncOutline } from "react-icons/ti";
+import { TiArrowSyncOutline } from "react-icons/ti/index.js";
 
 export default function Quiz() {
   const [questions, setQuestions] = useState([]);
@@ -24,16 +24,17 @@ export default function Quiz() {
 
   useEffect(() => {
     // Get URL params
-    const params = getUrlParams();
-    console.log("params", params);
+    const params =  getUrlParams();
+ 
+    console.log(params);
 
     // Make a request for a user with a given ID
     //?quiz_id=params.quiz_id
 
     axios
-      .get(SERVER_URL + "/quizzes?quiz_id=${params.quiz_id}")
+      .get(SERVER_URL + "/quizzes/" + params.quiz_id)
       .then(function (response) {
-        const quiz: Quiz = response.data[0];
+        const quiz: Quiz = response.data;
         const questions = quiz.questions.map(
           ({ answers, correctAnswer, question, questionNum }, index) => {
             return {

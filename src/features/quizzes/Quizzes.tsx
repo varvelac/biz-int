@@ -6,46 +6,37 @@ import { SERVER_URL } from "../../env.d";
 export default function Quizzes() {
   const [categories, setCategories] = useState<any[]>([]);
   useEffect(() => {
-  axios
-    .get(SERVER_URL + "/quizzes")
-    .then(function (response) {
-      let quizzes = response.data;
-      let categories: Category[] = [];
-      quizzes.forEach((quiz) => {
+    axios
+      .get(SERVER_URL + "/quizzes")
+      .then(function (response) {
+        let quizzes = response.data;
 
-      let quizObj:Quiz = {
-        category: quiz.category,
-        name: quiz.name,
-        quiz_id: quiz.quiz_id,
-        questions: quiz.questions
-      }
+        const categoriesMap = new Map();
 
-      let targetCategory = categories.find((category) => category.category === quiz.category)
-          
-      if(!targetCategory) {
-      categories.push(
-        {
-          category: quiz.category,
-          quizzes: [quizObj],
-        }
-      );
-      } else {
-        targetCategory.quizzes.push(quizObj);
-      }
-      
+        quizzes.forEach((quiz) => {
+          const category = quiz.category;
+          quiz.href = "/cosmetology/quiz/?quiz_id=" + quiz.quiz_id
+
+          if (categoriesMap.has(category)) {
+            categoriesMap.get(category).push(quiz);
+          } else {
+            categoriesMap.set(category, [quiz]);
+          }
+        });
+
+        const categoriesTemp = Array.from(
+          categoriesMap,
+          ([category, quizzes]) => ({ category, quizzes })
+        );
+
+        setCategories(categoriesTemp);
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
       });
-      setCategories(categories);
-      console.log(response.data);
-      
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-
   }, []);
-
-
 
   const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -79,17 +70,14 @@ export default function Quizzes() {
             </svg>
           </button>
 
-          <ul
-            className={`${
-              activeIndex === index ? "block" : "hidden"
-            } `}
-          >
+          <ul className={`${activeIndex === index ? "block" : "hidden"} `}>
             {category.quizzes?.map((quiz) => (
-              <li className="btn_w_border bg-white w-full flex items-center justify-between py-2 px-4 rounded-md mb-2" key={quiz.name}>
-                <a className="w-full"href="/cosmetology/quiz?=${quiz.quiz_id}">
-                <button className="w-full ">
-                {quiz.name}
-                </button>
+              <li
+                className="btn_w_border bg-white w-full flex items-center justify-between py-2 px-4 rounded-md mb-2"
+                key={quiz.name}
+              >
+                <a className="w-full" href={quiz.href}>
+                  <button className="w-full ">{quiz.name}</button>
                 </a>
               </li>
             ))}
