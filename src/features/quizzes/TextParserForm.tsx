@@ -93,48 +93,48 @@ export default function TextParserForm() {
       <div className="flex flex-col justify-center m-5">
         <label className="mx-auto"  htmlFor="category">Category Name</label>
         <input
-          className="mx-auto bg-grey-100 border-grey-700 w-6/12 m-5"
+          className="mx-auto bg-grey-100 border-gray-800 border-2 w-6/12 m-5"
           name="category"
           value={payload.category}
           onChange={changeCategory}
         ></input>
         <label className="mx-auto"  htmlFor="name">Quiz Name</label>
         <input
-          className="mx-auto bg-grey-100 border-grey-700 w-6/12 m-5"
+          className="mx-auto bg-grey-100 border-gray-800 border-2 w-6/12 m-5"
           name="name"
           value={payload.name}
           onChange={changeCategory}
         ></input>
         <label className="mx-auto"  htmlFor="quiz_id">Quiz Id</label>
         <input
-          className="mx-auto bg-grey-100 border-grey-700 w-6/12 m-5"
+          className="mx-auto bg-grey-100 border-gray-800 border-2 w-6/12 m-5"
           name="quiz_id"
           value={payload.quiz_id}
           onChange={changeCategory}
         ></input>
       </div>
       <form
-        className="flex flex-col justify-center m-5"
+        className="flex flex-col justify-center m-5 "
         onSubmit={handleFormSubmit}
       >
         <textarea
-          className="mx-auto border-gray-700 active:border-green-500 bg-grey-100 w-6/12 m-5"
+          className="mx-auto border-gray-800 border-2 active:border-green-500 bg-grey-100 w-6/12 m-5"
           rows={10}
           value={inputText}
           onChange={handleInputChange}
         />
         <textarea
-          className="mx-auto  border-gray-700 active:border-green-500 bg-grey-100  w-6/12 m-5 "
+          className="mx-auto  border-gray-800 border-2 active:border-green-500 bg-grey-100  w-6/12 m-5 "
           rows={10}
           value={questions ? JSON.stringify(questions, undefined, 2) : ""}
           onChange={handleInputChange}
         />
         <div className="block flex w-1/2 mx-auto">
-          <button className="mx-auto bg-grey-100 m-4 p-4" type="submit">
+          <button className="mx-auto bg-grey-100 m-4 p-4 border-gray-800 border-2" type="submit">
             Parse Text
           </button>
           <button
-            className="mx-auto border-grey-700 m-4 p-4"
+            className="mx-auto border-grey-700 m-4 p-4 border-gray-800 border-2"
             onClick={handleUpload}
           >
             Upload Quiz

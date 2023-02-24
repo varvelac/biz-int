@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios, { isCancel, AxiosError } from "axios";
 import { Category, Quiz, Question, AnswerValues } from "./quiz.model";
 import { SERVER_URL } from "../../env.d";
+import Spinner from "../../layouts/spinner.astro";
 
 export default function Quizzes() {
   const [categories, setCategories] = useState<any[]>([]);
@@ -15,7 +16,7 @@ export default function Quizzes() {
 
         quizzes.forEach((quiz) => {
           const category = quiz.category;
-          quiz.href = "/cosmetology/quiz/?quiz_id=" + quiz.quiz_id
+          quiz.href = "/cosmetology/quiz/?quiz_id=" + quiz.quiz_id;
 
           if (categoriesMap.has(category)) {
             categoriesMap.get(category).push(quiz);
@@ -48,6 +49,7 @@ export default function Quizzes() {
 
   return (
     <div className="max-w-md mx-auto">
+      {/* {categories.length === 0 && <Spinner />} */}
       {categories?.map((category, index) => (
         <div>
           <button

@@ -8,6 +8,7 @@ import { TiArrowSyncOutline } from "react-icons/ti/index.js";
 
 export default function Quiz() {
   const [questions, setQuestions] = useState([]);
+  const [title, setTitle] = useState('');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
@@ -35,6 +36,7 @@ export default function Quiz() {
       .get(SERVER_URL + "/quizzes/" + params.quiz_id)
       .then(function (response) {
         const quiz: Quiz = response.data;
+        setTitle(quiz.name);
         const questions = quiz.questions.map(
           ({ answers, correctAnswer, question, questionNum }, index) => {
             return {
@@ -73,7 +75,10 @@ export default function Quiz() {
 
   return (
     <div className="mx-auto flex flex-col sm:w-3/4 md:w-3/4 lg:w-1/2 p-8 ">
-      <div className="p-5">
+      <div className="pb-5">
+        <h5 className="mb-3 font-light text-sm">
+          {title}
+        </h5>
         <h1 className=" text-center text-black">
           {currentQuestion + 1} of {questions.length} questions
         </h1>
@@ -115,7 +120,7 @@ export default function Quiz() {
             })}
             <a className="fixed left-1/2 transform -translate-x-1/2 bottom-10 left-7/8 mx-auto w-1/8;" href="/cosmetology/quizzes">
               <button className="btn_w_border  bg-red-500 active:animate-ping">
-                <TiArrowSyncOutline size={16} className="text-orange-300" />
+                <TiArrowSyncOutline size="30" className="text-orange-300" />
               </button>
             </a>
           </div>

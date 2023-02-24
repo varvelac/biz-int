@@ -4,6 +4,7 @@ import Quizzes from '../../features/quizzes/Quizzes';
 import '../../styles/global.css';
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
+import {TiHomeOutline } from "react-icons/ti/index";
 ---
 
 <html lang="en">
@@ -25,6 +26,9 @@ import '../../styles/global.css';
 	</head>
 	<body class="bg-gray-400">
 		<main>
+			<!-- <a href="/" class="fixed top-5 left-10">
+				<button class="sidebar-icon group"><TiHomeOutline size="30" /></button>
+			</a> -->
 			<Quizzes client:visible/>		
 		</main>
 	</body>
