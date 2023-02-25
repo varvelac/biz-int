@@ -89,7 +89,7 @@ export default function TextParserForm() {
   };
 
   return (
-    <div className="container relative mx-auto px-4 w-1/2">
+    <div className="relative mx-auto px-4 w-1/2">
       <div className="flex flex-col justify-center m-5">
         <label className="mx-auto"  htmlFor="category">Category Name</label>
         <input
