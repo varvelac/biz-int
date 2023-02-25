@@ -90,51 +90,51 @@ export default function TextParserForm() {
 
   return (
     <div className="relative mx-auto px-4 w-1/2">
-      <div className="flex flex-col justify-center m-5">
+      <div className="flex flex-col justify-center m-3">
         <label className="mx-auto"  htmlFor="category">Category Name</label>
         <input
-          className="mx-auto bg-grey-100 border-gray-800 border-2 w-6/12 m-5"
+          className="mx-auto bg-grey-100 border-gray-800 border-2 w-3/4 rounded m-3"
           name="category"
           value={payload.category}
           onChange={changeCategory}
         ></input>
         <label className="mx-auto"  htmlFor="name">Quiz Name</label>
         <input
-          className="mx-auto bg-grey-100 border-gray-800 border-2 w-6/12 m-5"
+          className="mx-auto bg-grey-100 border-gray-800 border-2 w-3/4 rounded m-3"
           name="name"
           value={payload.name}
           onChange={changeCategory}
         ></input>
         <label className="mx-auto"  htmlFor="quiz_id">Quiz Id</label>
         <input
-          className="mx-auto bg-grey-100 border-gray-800 border-2 w-6/12 m-5"
+          className="mx-auto bg-grey-100 border-gray-800 border-2 w-3/4 rounded m-3"
           name="quiz_id"
           value={payload.quiz_id}
           onChange={changeCategory}
         ></input>
       </div>
       <form
-        className="flex flex-col justify-center m-5 "
+        className="flex flex-col justify-center m-3 "
         onSubmit={handleFormSubmit}
       >
         <textarea
-          className="mx-auto border-gray-800 border-2 active:border-green-500 bg-grey-100 w-6/12 m-5"
-          rows={10}
+          className="mx-auto border-gray-800 border-2 active:border-green-500 bg-grey-100 w-3/4 rounded m-3"
+          rows={5}
           value={inputText}
           onChange={handleInputChange}
         />
         <textarea
-          className="mx-auto  border-gray-800 border-2 active:border-green-500 bg-grey-100  w-6/12 m-5 "
-          rows={10}
+          className="mx-auto  border-gray-800 border-2 active:border-green-500 bg-grey-100  w-3/4 rounded m-3 "
+          rows={5}
           value={questions ? JSON.stringify(questions, undefined, 2) : ""}
           onChange={handleInputChange}
         />
-        <div className="block flex w-1/2 mx-auto">
-          <button className="mx-auto bg-grey-100 m-4 p-4 border-gray-800 border-2" type="submit">
+        <div className="flex w-1/2 mx-auto">
+          <button className="mx-auto bg-white m-4 p-4 border-gray-800 border-2" type="submit">
             Parse Text
           </button>
           <button
-            className="mx-auto border-grey-700 m-4 p-4 border-gray-800 border-2"
+            className="mx-auto bg-white border-grey-700 m-4 p-4 border-gray-800 border-2"
             onClick={handleUpload}
           >
             Upload Quiz

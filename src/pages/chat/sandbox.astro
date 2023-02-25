@@ -1,9 +1,7 @@
 ---
-// Component Imports
-import Quizzes from '../../features/quizzes/Quizzes';
-import '../../styles/global.css';
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
+import Chatbot from "../../features/chat/Chatbot";
+import Card from "../../layouts/card.astro";
+import Sidenav from "../../layouts/sidenav.astro";
 ---
 
 <html lang="en">
@@ -24,10 +22,9 @@ import '../../styles/global.css';
 		</style>
 	</head>
 	<body class="bg-gray-400">
-		<main>
-			<h1>
-        WORKING</h1>	
-        <Quizzes client:load/>
+        <Sidenav />
+		<main style="margin-left:55px">
+            <Chatbot client:load/>	
 		</main>
 	</body>
 </html>
