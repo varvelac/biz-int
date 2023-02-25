@@ -3,11 +3,37 @@
 @import 'tailwindcss/utilities';
 
 @layer components {
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes spin-slow-reverse {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  
+  .animate-spin-slow {
+    animation: spin-slow 4s linear infinite;
+  }
+  
+  .animate-spin-slow-reverse {
+    animation: spin-slow-reverse 4s linear infinite;
+  }
+  
   a{
     text-decoration: none;
   }
   .fixed-horizonal-centered {
-    @apply fixed left-1/2
+    @apply fixed left-1/2 top-1/2
   }
 
   .btn {
