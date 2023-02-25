@@ -5,6 +5,7 @@ import { Question, Quiz } from "./quiz.model";
 import { SERVER_URL } from "../../env.d";
 import "../../styles/global.css";
 import { TiArrowSyncOutline } from "react-icons/ti/index.js";
+import Spinner from "../../layouts/spinner";
 
 export default function Quiz() {
   const [questions, setQuestions] = useState([]);
@@ -25,8 +26,8 @@ export default function Quiz() {
 
   useEffect(() => {
     // Get URL params
-    const params =  getUrlParams();
- 
+    const params = getUrlParams();
+
     console.log(params);
 
     // Make a request for a user with a given ID
@@ -75,22 +76,27 @@ export default function Quiz() {
 
   return (
     <div className="mx-auto flex flex-col sm:w-3/4 md:w-3/4 lg:w-1/2 p-8 ">
-      <div className="pb-5">
-        <h5 className="mb-3 font-light text-sm">
-          {title}
-        </h5>
-        <h1 className=" text-center text-black">
-          {currentQuestion + 1} of {questions.length} questions
-        </h1>
-        <div className="mt-3 mx-auto h-3 relative max-w-xl rounded-sm overflow-hidden">
-          <div className="w-full h-full bg-gray-200 absolute"></div>
-          <div
-            id="progress-bar"
-            className="transition-all ease-out duration-1000 h-full bg-gradient-to-r bg-blue-400  relative"
-            style={{ width: `${(currentQuestion / questions.length) * 100}%` }}
-          ></div>
+      {!question ? (<Spinner />) : (
+        <div className="pb-5">
+
+          <h5 className="mb-3 font-light text-sm">
+            {title}
+          </h5>
+          <h1 className=" text-center text-black">
+            {currentQuestion + 1} of {questions.length} questions
+          </h1>
+          <div className="mt-3 mx-auto h-3 relative max-w-xl rounded-sm overflow-hidden">
+            <div className="w-full h-full bg-gray-200 absolute"></div>
+            <div
+              id="progress-bar"
+              className="transition-all ease-out duration-1000 h-full bg-gradient-to-r bg-blue-400  relative"
+              style={{ width: `${(currentQuestion / questions.length) * 100}%` }}
+            ></div>
+          </div>
+
         </div>
-      </div>
+      )}
+
 
       {showScore ? (
         <>
@@ -111,7 +117,7 @@ export default function Quiz() {
                     {" "}
                     {
                       questions[incorrectAnswer].answers[
-                        answerMap[questions[incorrectAnswer].correctAnswer]
+                      answerMap[questions[incorrectAnswer].correctAnswer]
                       ]
                     }{" "}
                   </p>
@@ -136,7 +142,7 @@ export default function Quiz() {
             return (
               <button
                 key={key}
-                className="btn_w_border text-left bg-gray-100"
+                className="btn_w_border text-left bg-white"
                 onClick={() => handleAnswer(key)}
               >
                 {key} : {value}

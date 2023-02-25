@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios, { isCancel, AxiosError } from "axios";
 import { Category, Quiz, Question, AnswerValues } from "./quiz.model";
 import { SERVER_URL } from "../../env.d";
-import Spinner from "../../layouts/spinner.astro";
+import Spinner from "../../layouts/spinner";
 
 export default function Quizzes() {
   const [categories, setCategories] = useState<any[]>([]);
@@ -49,7 +49,7 @@ export default function Quizzes() {
 
   return (
     <div className="max-w-md mx-auto">
-      {/* {categories.length === 0 && <Spinner />} */}
+      {categories.length === 0 && <Spinner />}
       {categories?.map((category, index) => (
         <div>
           <button

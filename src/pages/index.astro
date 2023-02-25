@@ -2,7 +2,7 @@
 // Component Imports
 import TextParserForm from '../features/quizzes/TextParserForm';
 import Sidenav from '../layouts/sidenav.astro';
-import Spinner from '../layouts/spinner.astro';
+import Spinner from '../layouts/spinner';
 import '../styles/global.css';
 
 // Full Astro Component Syntax:
@@ -28,9 +28,7 @@ import '../styles/global.css';
 	</head>
 	<body class="bg-gray-400">
 		<main class="flex flex-col">
-			<Sidenav />
-			<Spinner class="left-30" />
-		
+			<Sidenav />		
 		</main>
 	</body>
 </html>
