@@ -9,7 +9,7 @@ export default function Chatbot() {
         model: "text-davinci-003",
         prompt: "Hello world",
         temperature: 0,
-        max_tokens: 100,
+        max_tokens: 200,
         // topP: 1,
         // presencePenalty: 0,
         // frequencyPenalty: 0,
@@ -20,7 +20,7 @@ export default function Chatbot() {
     });
 
     const [response, setChatResponse] = useState("")
-
+    const [showSpinner, setShowSpinner] = useState(false)
     const [savedPrompts, setSavedPrompt] = useState([])
 
     const configuration = new Configuration({
@@ -31,13 +31,12 @@ export default function Chatbot() {
    
 
     const handleUpload = async (event) => {
+        setShowSpinner(true)
         try {
-            const completion = await openai.createCompletion({
-                model: payload.model,
-                prompt: payload.prompt,
-            });
+            const completion = await openai.createCompletion(payload);
             setChatResponse(completion.data.choices[0].text)
             console.log(completion.data.choices[0].text);
+            setShowSpinner(false)
         } catch (error) {
             if (error.response) {
                 console.log(error.response.status);
@@ -61,6 +60,11 @@ export default function Chatbot() {
 
     return (
         <div className=" mx-auto flex flex-col">
+
+            {showSpinner? (
+                <div className="relative top-36">            <Spinner/>
+                </div>
+            ) : ("")}
             <textarea
                 className="mx-auto rounded  border-gray-800 border-2 active:border-green-500 bg-grey-100 w-full lg:w-3/4 m-5"
                 rows={10}
