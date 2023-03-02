@@ -95,6 +95,15 @@ export default function Quizzes() {
           </ul>
         </div>
       ))}
+      <div className="flex ">
+      <a className="flexxyButton" href={"/cosmetology/quiz/?quiz_id=new&random=true"}>
+                  <button className="w-full ">Random 110 New Questions</button>
+      </a>
+      <a className="flexxyButton" href={"/cosmetology/quiz/?quiz_id=old&random=true"}>
+                  <button className="w-full ">Random 110 Old Questions</button>
+      </a>
+      </div>
+      
     </div>
   );
 }
