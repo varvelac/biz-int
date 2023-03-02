@@ -32,9 +32,13 @@ export default function Quiz() {
 
     // Make a request for a user with a given ID
     //?quiz_id=params.quiz_id
+    let url = SERVER_URL + "/quizzes/" + params.quiz_id
+    if(params.random) url = SERVER_URL + "/quizzes/random/" + params.quiz_id;
+      
+  
 
     axios
-      .get(SERVER_URL + "/quizzes/" + params.quiz_id)
+      .get(url)
       .then(function (response) {
         const quiz: Quiz = response.data;
         setTitle(quiz.name);
