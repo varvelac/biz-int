@@ -83,9 +83,27 @@ export default function Quizzes() {
                 </a>
               </li>
             ))}
+            
+            <li
+                className="btn_w_border bg-green-100 w-full flex items-center justify-between py-2 px-4 rounded-md mb-2"
+                key={category.category}
+              >
+                <a className="w-full" href={"/cosmetology/quiz/?quiz_id=" + category.category + "&random=true"}>
+                  <button className="w-full ">Random 110 Questions</button>
+                </a>
+              </li>
           </ul>
         </div>
       ))}
+      <div className="flex ">
+      <a className="flexxyButton" href={"/cosmetology/quiz/?quiz_id=new&random=true"}>
+                  <button className="w-full ">Random 110 New Questions</button>
+      </a>
+      <a className="flexxyButton" href={"/cosmetology/quiz/?quiz_id=old&random=true"}>
+                  <button className="w-full ">Random 110 Old Questions</button>
+      </a>
+      </div>
+      
     </div>
   );
 }

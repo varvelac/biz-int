@@ -39,6 +39,10 @@
   .animate-spin-slow-reverse {
     animation: spin-slow-reverse 4s linear infinite;
   }
+
+  .flexxyButton {
+    @apply btn_w_border bg-red-500 text-orange-300 w-full flex items-center justify-between py-2 px-4 m-1 rounded-md mb-2 active:border-orange-300 active:border-2
+  }
   
   a{
     text-decoration: none;

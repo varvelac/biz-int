@@ -6,15 +6,29 @@ import { SERVER_URL } from "../../env.d";
 import "../../styles/global.css";
 import { TiArrowSyncOutline } from "react-icons/ti/index.js";
 import Spinner from "../../layouts/spinner";
+import moment from "moment";
 
 export default function Quiz() {
+  const targetDate = moment().add(60, 'minutes');
+  function getTimeLeft (){
+    const now = moment();
+    const diff = targetDate.diff(now);
+    const duration = moment.duration(diff);
+    const minutes = duration.minutes();
+    const seconds = duration.seconds();
+    return {
+      minutes,
+      seconds,
+    };
+  }
   const [questions, setQuestions] = useState([]);
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState("");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
-
+  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+  const [singleton, setSingleton] = useState(false);
   const answerMap = {
     A: 0,
     B: 1,
@@ -23,19 +37,33 @@ export default function Quiz() {
   };
   let question = questions[currentQuestion];
   let correctAnswer = question?.correctAnswer;
+  
+
+
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft(getTimeLeft());
+    }, 1000);
+    //old fashioned singleton, but it works
+    if (singleton === false) {
+      fetchData();
+      setSingleton(true);
+    }
+    return () => clearInterval(interval);
+  }, []);
+
+
+  const fetchData = async () => {
     // Get URL params
     const params = getUrlParams();
 
     console.log(params);
 
-    // Make a request for a user with a given ID
-    //?quiz_id=params.quiz_id
+      let url = SERVER_URL + "/quizzes/" + params.quiz_id;
+      if (params.random) url = SERVER_URL + "/quizzes/random/" + params.quiz_id;
 
-    axios
-      .get(SERVER_URL + "/quizzes/" + params.quiz_id)
-      .then(function (response) {
+      axios.get(url).then(function (response) {
         const quiz: Quiz = response.data;
         setTitle(quiz.name);
         const questions = quiz.questions.map(
@@ -51,9 +79,8 @@ export default function Quiz() {
           }
         );
         setQuestions(questions);
-        console.log(questions);
       });
-  }, []);
+  };
 
   const handleAnswer = (selectedAnswer) => {
     console.log("selectedAnswer", selectedAnswer);
@@ -74,13 +101,28 @@ export default function Quiz() {
     }
   };
 
+
+
+
+
+
   return (
     <div className="mx-auto flex flex-col sm:w-3/4 md:w-3/4 lg:w-1/2 p-8 ">
-      {!question ? (<Spinner />) : (
+      {!question ? (
+        <Spinner />
+      ) : (
         <div className="pb-5">
-
-          <h5 className="mb-3 font-light text-sm">
+          <h5 className="mb-3 font-light text-sm w-full flex">
             {title}
+            <span className="text-black ml-auto">
+              {timeLeft.minutes < 10
+                ? `0${timeLeft.minutes}`
+                : timeLeft.minutes}
+              :
+              {timeLeft.seconds < 10
+                ? `0${timeLeft.seconds}`
+                : timeLeft.seconds}
+            </span>
           </h5>
           <h1 className=" text-center text-black">
             {currentQuestion + 1} of {questions.length} questions
@@ -90,13 +132,13 @@ export default function Quiz() {
             <div
               id="progress-bar"
               className="transition-all ease-out duration-1000 h-full bg-gradient-to-r bg-blue-400  relative"
-              style={{ width: `${(currentQuestion / questions.length) * 100}%` }}
+              style={{
+                width: `${(currentQuestion / questions.length) * 100}%`,
+              }}
             ></div>
           </div>
-
         </div>
       )}
-
 
       {showScore ? (
         <>
@@ -117,14 +159,17 @@ export default function Quiz() {
                     {" "}
                     {
                       questions[incorrectAnswer].answers[
-                      answerMap[questions[incorrectAnswer].correctAnswer]
+                        answerMap[questions[incorrectAnswer].correctAnswer]
                       ]
                     }{" "}
                   </p>
                 </div>
               );
             })}
-            <a className="fixed left-1/2 transform -translate-x-1/2 bottom-10 left-7/8 mx-auto w-1/8;" href="/cosmetology/quizzes">
+            <a
+              className="fixed left-1/2 transform -translate-x-1/2 bottom-10 left-7/8 mx-auto w-1/8;"
+              href="/cosmetology/quizzes"
+            >
               <button className="btn_w_border  bg-red-500 active:animate-ping">
                 <TiArrowSyncOutline size="30" className="text-orange-300" />
               </button>
