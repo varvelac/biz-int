@@ -1,4 +1,4 @@
-# Astro + React + Svelte + Tailwind.  Coming Soon, Vue
+# Astro + React + Svelte + Vue + Tailwind. 
 
 ## Repo Purpose
 Creating an App that will host a bunch of feature pages. From a new quiz app for my wife to a few power bi reports, and other stuff
