@@ -95,6 +95,7 @@ export default function Quizzes() {
           </ul>
         </div>
       ))}
+      {categories.length === 0? '': (
       <div className="flex ">
       <a className="flexxyButton" href={"/cosmetology/quiz/?quiz_id=new&random=true"}>
                   <button className="w-full ">Random 110 New Questions</button>
@@ -102,7 +103,8 @@ export default function Quizzes() {
       <a className="flexxyButton" href={"/cosmetology/quiz/?quiz_id=old&random=true"}>
                   <button className="w-full ">Random 110 Old Questions</button>
       </a>
-      </div>
+      </div> 
+      )}
       
     </div>
   );

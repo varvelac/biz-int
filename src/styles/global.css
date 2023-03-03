@@ -41,7 +41,7 @@
   }
 
   .flexxyButton {
-    @apply btn_w_border bg-red-500 text-orange-300 w-full flex items-center justify-between py-2 px-4 m-1 rounded-md mb-2 active:border-orange-300 active:border-2
+    @apply btn_w_border bg-white  w-full flex items-center justify-between py-2 px-4 m-1 rounded-md mb-2 active:bg-red-500 active:border-2 active:text-orange-300
   }
   
   a{
