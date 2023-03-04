@@ -31,6 +31,29 @@
       transform: rotate(-360deg);
     }
   }
+
+  @keyframes sway {
+  0% {
+    transform: rotateZ(-5deg);
+  }
+  50% {
+    transform: rotateZ(5deg);
+  }
+  100% {
+    transform: rotateZ(-5deg);
+  }
+}
+
+.bg-swaying-image {
+  background-image: url('/path/to/your/image.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: sway 10s ease-in-out infinite;
+}
+
+  .textarea-borders{
+  @apply p-5 rounded shadow-lg border-gray-800 border-2 active:border-green-500 bg-white w-full lg:w-3/4
+  mb-5}
   
   .animate-spin-slow {
     animation: spin-slow 4s linear infinite;

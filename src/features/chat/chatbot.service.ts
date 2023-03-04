@@ -5,7 +5,7 @@ import { BehaviorSubject } from "rxjs";
 export const sendChat$ = new BehaviorSubject("");
 export const getPrefixes$ = new BehaviorSubject([]);
 
-export function sendChat(payload: any): any[] {
+export function sendChat(payload: any): any {
   axios
     .post(SERVER_URL + "/chats", payload)
     .then(function (response) {
@@ -20,7 +20,7 @@ export function sendChat(payload: any): any[] {
    
 }
 
-export function getPrefixes(): any[] {
+export function getPrefixes():  any{
   axios
     .get(SERVER_URL + "/chats/prefixes")
     .then(function (response) {

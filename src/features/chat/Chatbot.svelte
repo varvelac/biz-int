@@ -21,7 +21,9 @@
   let selectedPrefixes = [0];
   let max_tokens_slider: number = 500;
   let temp_slider: number = 0.1;
+  //externalize this soon
   let models: any[] = [{model:"text-davinci-003", max_tokens:4096},{model:"code-davinci-002", max_tokens:8000},{model:"text-curie-001", max_tokens:2048}]
+  
   let selectedModel: any = models[0];
   $: length = selectedPrefixes.length;
   sendChat$.subscribe((data) => {
@@ -41,7 +43,6 @@
     payload.model = selectedModel.model;
     payload.max_tokens = Number(max_tokens_slider);
     payload.temperature = Number(temp_slider);
-
     sendChat(payload);
   }
 
@@ -58,7 +59,7 @@
     temp_slider = e.target.value;
     payload.temperature = Number(temp_slider);
   };
-  
+  //write
 </script>
 
 <div class="message h-screen ">
@@ -70,18 +71,21 @@
         <svelte:component this={Spinner} />
       </div>
     {/if}
+    <div class="mx-auto w-full text-center"> 
     <textarea
-      class="p-5 mx-auto rounded shadow-lg border-gray-800 border-2 active:border-green-500 bg-grey-100 w-full lg:w-3/4 m-5"
-      rows={10}
+      class="textarea-borders"
+      rows={6}
       bind:value={chatResponse}
       readonly
     />
+    
     <textarea
-      class="p-5 mx-auto rounded shadow-lg border-gray-800 border-2 active:border-green-500 bg-grey-100 w-full lg:w-3/4 m-5"
+      class="textarea-borders"
       rows={2}
       bind:value={payload.prompt}
       on:change={promptInputChange}
     />
+  </div>
 
      <!-- multi select -->
      <div class="mx-auto w-full lg:w-3/4 rounded border-2 border-black shadow-lg">
@@ -94,7 +98,7 @@
     
     <!-- This Section is for the advanced features -->
     <!-- Range Slider for token max -->
-    <div class="flex flex-wrap justify-center mx-auto w-full lg:w-3/4">
+    <div class=" hidden lg:flex flex-wrap justify-center mx-auto w-full lg:w-3/4">
 
       <div class=" my-3 w-full range-slider bg-white lg:w-2/6 border-2 border-black rounded shadow-lg flex">
         <input class="relative left-1 pl-5 p-3 accent-orange-500 range-slider__range w-full " type="range" value={max_tokens_slider} min="100" max={selectedModel.max_tokens} step="25" on:click={()=> handleMaxTokenValue(event)}>
@@ -118,7 +122,7 @@
 
     <div class="flex w-full mx-auto mt-10">
       <button
-        class="mx-auto w-1/4 rounded btn_w_border shadow-lg"
+        class="mx-auto w-1/4 rounded btn_w_border sidebar-icon shadow-lg"
         on:click={handleUpload}
       >
         Send
