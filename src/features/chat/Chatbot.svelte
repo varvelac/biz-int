@@ -74,21 +74,26 @@
     <div class="mx-auto w-full text-center"> 
     <textarea
       class="textarea-borders"
-      rows={6}
+      rows={10}
       bind:value={chatResponse}
       readonly
     />
     
-    <textarea
-      class="textarea-borders"
-      rows={2}
+    <input
+      class="textarea-borders py-3"
+      type="text"
       bind:value={payload.prompt}
       on:change={promptInputChange}
+      on:keydown={(e) => {
+        if (e.key === "Enter" || e.key === "Return" || e.key === "Next") {
+          handleUpload();
+        }
+      }}
     />
   </div>
 
      <!-- multi select -->
-     <div class="mx-auto w-full lg:w-3/4 rounded border-2 border-black shadow-lg">
+     <div class="mx-auto w-full bg-white lg:w-3/4 rounded border-2 border-black shadow-lg">
       <select class="w-full  h-full p-3" bind:value={selectedPrefixes} >
         {#each promptPrefixes as prompt}
           <option class="flex-wrap" value={prompt.prompt}>{prompt.name}</option>

@@ -93,7 +93,7 @@
   .sidebar-icon {
     @apply relative flex items-center justify-center 
     h-12 w-12 mt-2 mb-2 mx-auto  
-  bg-gray-400 hover:bg-primary dark:bg-gray-800 
+  bg-white hover:bg-primary dark:bg-gray-800 
   text-primary hover:text-orange-300
     hover:rounded-xl rounded-3xl
     transition-all duration-300 ease-linear
